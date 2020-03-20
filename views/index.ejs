@@ -19,9 +19,9 @@
       <% list.forEach(function(item) { %>
       <div class="list">
         <h1><%= item.name %> <i class="fa fa-plus"></i></h1>
-        <form method="POST" action="/">
-          <input type="hidden" name="listId" value= "<%= item.id %>" readonly/>
-          <input type="text" name="title" placeholder="Add Title New Todo" required/>
+        <form method="POST" action="/" class="add" style="display: none;">
+          <input type="hidden" name="listId" value="<%= item.id %>" readonly />
+          <input type="text" name="title" placeholder="Add Title New Todo" required />
           <input type="text" name="desc" placeholder="Add desc" required>
           <input type="text" name="order" placeholder="Add order" required>
           <input type="submit" value="OK">
@@ -29,8 +29,12 @@
         <ul>
           <% task[item.id - 1].forEach(item1 =>{ %>
           <li>
+            <form class="delete" method="DELETE" action="/task">
+              <input type="hidden" name="id" value="<%= item1.id %>" readonly />
+              <input type="hidden" name="listId" value="<%= item1.listId %>" readonly />
               <div>
-                <span><i class="fa fa-trash"></i></span><%= item1.title %>
+                <a href="task?id=<%= item1.id %>&listId=<%= item1.listId %>"><span><i
+                      class="fa fa-trash"></i></span></a><%= item1.title %>
                 <div class="date">
                   <%= item1.createdAt %>
                 </div>
@@ -38,6 +42,7 @@
                   <%= item1.desc %>
                 </div>
               </div>
+            </form>
           </li>
           <% }); %>
         </ul>
